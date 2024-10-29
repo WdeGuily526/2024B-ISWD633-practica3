@@ -4,31 +4,38 @@ Un volumen host (o bind mount) es un tipo de volumen donde se monta un directori
 ```
 docker run -d --name <nombre contenedor> -v <ruta carpeta host>:<ruta carpeta contenedor> <imagen> 
 ```
-### En tu computador crear una carpeta llamada nginx y dentro de esta carpeta crea otra llamada html. Como se aprecia en la figura.
-![Volúmenes](img/directorio.PNG)
 
-### Crear un volumen tipo host con la imagen nginx:alpine, mapear todos por puertos, para la ruta carpeta host colocar el directorio en donde se encuentra la carpeta html en tu computador y para la ruta carpeta contenedor: /usr/share/nginx/html (esta ruta se obtiene al revisar la documentación de la imagen)
-![Volúmenes](img/volumen-host.PNG)
-# COMPLETAR CON EL COMANDO
+### Crear un volumen tipo host con la imagen nginx:alpine, para la ruta carpeta host: directorio en donde se encuentra la carpeta html en tu computador y para la ruta carpeta contenedor: /usr/share/nginx/html esta ruta se obtiene al revisar la documentación
+![Volúmenes](img/directorio.PNG)
+```
+docker run -d --name nginx -p 80:80 -v C:\html:/usr/share/nginx/html nginx:alpine 
+```
 
 ### ¿Qué sucede al ingresar al servidor de nginx?
-# COMPLETAR CON LA RESPUESTA A LA PREGUNTA
+403 Forbidden
+se muestra el error 403 que indica que el acceso esta restringido
 
 ### ¿Qué pasa con el archivo index.html del contenedor?
-# COMPLETAR CON LA RESPUESTA A LA PREGUNTA
+no se mostro por que no existe
 
-### Ir a https://html5up.net/ y descargar un template gratuito, descomprirlo dentro de tu computador en la carpeta html
+### Ir a https://html5up.net/ y descargar un template gratuito, descomprirlo dentro de nginx/html
 ### ¿Qué sucede al ingresar al servidor de nginx?
-# COMPLETAR CON LA RESPUESTA A LA PREGUNTA
+el template se muestra al abrir la direccion del puerto mapeado
 
 ### Eliminar el contenedor
-# COMPLETAR CON EL COMANDO
+```
+docker ps -a
+docker rm -f id
+```
+el primer comando lista todos los contenedores 
+el segundo elimina el contenedor segun la id
 
 ### ¿Qué sucede al crear nuevamente el mismo contenedor con volumen de tipo host a los directorios definidos anteriormente?
-# COMPLETAR CON LA RESPUESTA A LA PREGUNTA
+como el volumen ya esta definido aun carga la pagina web, aun asi el directorio este vacio
+por que el link entre el contenedor y el volumen es directo.
 
 ### ¿Qué hace el comando pwd?
-# COMPLETAR CON LA RESPUESTA A LA PREGUNTA
+imprimir el directorio de trabajo actual, muestra los demas directorios y ficheros
 Si quieres incluir el comando pwd dentro de un comando de Docker, lo puedes hacer de diferentes maneras dependiendo del shell que estés utilizando.
 
 
@@ -41,11 +48,3 @@ docker run -d --name <nombre contenedor> --publish published=<valorPuertoHost>,t
 
 ```
 docker run -d --name <nombre contenedor> --publish published=<valorPuertoHost>,target=<valor> -v $(pwd -W)/html:/usr/share/nginx/html <nombre imagen>:<tag> 
-```
-
-### Volumen tipo host usando PWD (en Linux)
-
-```
-docker run -d --name <nombre contenedor> --publish published=<valorPuertoHost>,target=<valor> -v $(pwd)/html:/usr/share/nginx/html <nombre imagen>:<tag> 
-```
-
